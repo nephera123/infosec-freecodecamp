@@ -3,29 +3,37 @@ const helmet = require('helmet');
 const app = express();
 
 
-app.use(helmet.hidePoweredBy());
+// app.use(helmet.hidePoweredBy());
 
-app.use(helmet.frameguard({action: `deny`}));
+// app.use(helmet.frameguard({action: `deny`}));
 
-app.use(helmet.xssFilter());
+// app.use(helmet.xssFilter());
 
-app.use(helmet.noSniff());
+// app.use(helmet.noSniff());
 
-app.use(helmet.ieNoOpen());
+// app.use(helmet.ieNoOpen());
 
-const timeInSeconds = ninetyDaysInSeconds = 90*24*60*60;
-app.use(helmet.hsts({maxAge: timeInSeconds, force: true}));
+// const timeInSeconds = ninetyDaysInSeconds = 90*24*60*60;
+// app.use(helmet.hsts({maxAge: timeInSeconds, force: true}));
 
-app.use(helmet.dnsPrefetchControl());
+// app.use(helmet.dnsPrefetchControl());
 
-app.use(helmet.noCache());
+// app.use(helmet.noCache());
 
-app.use(helmet.contentSecurityPolicy({directives:{
-  defaultSrc: ["'self'"],
-  scriptSrc: ["'self'", 'trusted-cdn.com']
-}}));
+// app.use(helmet.contentSecurityPolicy({directives:{
+//   defaultSrc: ["'self'"],
+//   scriptSrc: ["'self'", 'trusted-cdn.com']
+// }}));
 
-
+app.use(helmet({
+  noCache: true,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'trusted-cdn.com']
+    }
+  }
+}));
 
 
 
